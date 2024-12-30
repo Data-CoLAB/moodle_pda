@@ -1,7 +1,7 @@
 ARG ARCH=
 FROM ${ARCH}erseco/alpine-php-webserver:latest
 
-LABEL maintainer="Ernesto Serrano <info@ernesto.es>"
+LABEL maintainer="Carlos Domingues - carlos.domingues@datacolab.pt"
 
 USER root
 COPY --chown=nobody rootfs/ /
@@ -19,39 +19,39 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 USER nobody
 
 # Change MOODLE_XX_STABLE for new versions
-ENV MOODLE_URL=https://github.com/moodle/moodle/archive/MOODLE_405_STABLE.tar.gz \
+ENV MOODLE_URL=https://download.moodle.org/download.php/direct/stable405/moodle-latest-405.tgz \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     SITE_URL=http://localhost \
     DB_TYPE=pgsql \
-    DB_HOST=postgres \
-    DB_PORT=5432 \
-    DB_NAME=moodle \
-    DB_USER=moodle \
-    DB_PASS=moodle \
+    DB_HOST=172.16.1.101 \
+    DB_PORT=30432 \
+    DB_NAME=moodle_pda \
+    DB_USER=moodle_pda \
+    DB_PASS=change_docker_run \
     DB_PREFIX=mdl_ \
     DB_DBHANDLEOPTIONS=false \
     REDIS_HOST= \
     REVERSEPROXY=false \
     SSLPROXY=false \
     MY_CERTIFICATES=none \
-    MOODLE_EMAIL=user@example.com \
+    MOODLE_EMAIL=pda@datacolab.pt \
     MOODLE_LANGUAGE=en \
-    MOODLE_SITENAME=Dockerized_Moodle \
-    MOODLE_USERNAME=moodleuser \
-    MOODLE_PASSWORD=PLEASE_CHANGEME \
-    SMTP_HOST=smtp.gmail.com \
-    SMTP_PORT=587 \
-    SMTP_USER=your_email@gmail.com \
-    SMTP_PASSWORD=your_password \
+    MOODLE_SITENAME=Portuguese Data Academy \
+    MOODLE_USERNAME=pda \
+    MOODLE_PASSWORD=change_docker_run \
+    SMTP_HOST=smtp.datacolab.pt \
+    SMTP_PORT=465 \
+    SMTP_USER=noreply1@datacolab.pt \
+    SMTP_PASSWORD=change_docker_run \
     SMTP_PROTOCOL=tls \
-    MOODLE_MAIL_NOREPLY_ADDRESS=noreply@localhost \
-    MOODLE_MAIL_PREFIX=[moodle] \
+    MOODLE_MAIL_NOREPLY_ADDRESS=pda@datacolab.pt \
+    MOODLE_MAIL_PREFIX=[PDA-Portuguese Data Academy] \
     AUTO_UPDATE_MOODLE=true \
     DEBUG=false \
-    client_max_body_size=50M \
-    post_max_size=50M \
-    upload_max_filesize=50M \
+    client_max_body_size=500M \
+    post_max_size=500M \
+    upload_max_filesize=500M \
     max_input_vars=5000
 
 RUN curl --location $MOODLE_URL | tar xz --strip-components=1 -C /var/www/html/
